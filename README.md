@@ -1,3 +1,5 @@
 # Chicken-Burger-brws
 
-Needed: PyQt5 and PyQtWebEngine
+Needed: python
+
+Packages needed: PyQt5 and PyQtWebEngine
