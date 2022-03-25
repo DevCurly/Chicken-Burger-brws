@@ -1,7 +1,6 @@
 # Chicken Burger browser
 # PL: Python
 # Packages: PyQt5 and PyQtWebEngine
-# Made by @zDevCurly
 # https://www.github.com/DevCurly/Chicken-Burger-brws
 
 
@@ -184,7 +183,7 @@ window = MainWindow()
 
 app.exec_()
 
-print("Made by @zDevCurly")
+print("Made by DevCurly")
 
 print("https://www.github.com/DevCurly/Chicken-Burger-brws")
 
