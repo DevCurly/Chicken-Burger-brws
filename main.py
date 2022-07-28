@@ -1,11 +1,16 @@
 # Chicken Burger browser
 # PL: Python
 # Packages: PyQt5 and PyQtWebEngine
+# Author: DevCurly
 # https://www.github.com/DevCurly/Chicken-Burger-brws
 
 
-import sys
 
+
+
+import os
+import sys
+os.system("pip install PyQt5")
 from PyQt5.QtCore import *
 
 from PyQt5.QtWidgets import *
@@ -14,9 +19,30 @@ from PyQt5.QtWebEngineWidgets import *
 
 import time
 
+
 print("Welcome to Chicken Burger browser!")
 
-Home =  str(input("Home page (Example: url.com): "))
+
+#Settings
+
+std = [
+    
+    "duckduckgo.com", # home page (0)
+    # You can add more settings here
+    # Example:
+    "Dark mode", # Change to dark mode (1)
+]
+
+# Home Page
+
+
+
+Home = std[0] or str(input("Enter your homepage: "))
+
+for settin in std:
+    print(settin)
+
+
 
 print("""
 The browser automatically completes links like
@@ -52,6 +78,8 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.browser)
 
         self.showMaximized()
+        
+        
 
         navbar = QToolBar()
 
@@ -61,6 +89,8 @@ class MainWindow(QMainWindow):
 
         navbar.addWidget(self.url_bar)
 
+
+       
         # navbar
 
         self.addToolBar(navbar)
@@ -72,7 +102,7 @@ class MainWindow(QMainWindow):
         back_btn.triggered.connect(self.browser.back)
 
         navbar.addAction(back_btn)
-
+        
         # Forward button
 
         forward_btn = QAction("🡺",self)
@@ -83,9 +113,10 @@ class MainWindow(QMainWindow):
 
         # Version  button
 
+
         ver=""
 
-        ver = QAction("A1.1.01",self)
+        ver = QAction("A2",self)
 
         ver.triggered.connect(self.ripv)
 
@@ -105,6 +136,15 @@ class MainWindow(QMainWindow):
         #   dh.triggered.connect(self.browser.autoFillBackground)
         #   navbar.addAction(dh)
 
+        # Extensions button
+
+        # new Tab button
+        newTab = QAction("New Tab",self)
+        
+        newTab.triggered.connect(self.newTab)
+        
+        navbar.addAction(newTab)
+
         # Home button
 
         home_btn = QAction("⌂", self)
@@ -117,13 +157,62 @@ class MainWindow(QMainWindow):
         
         self.browser.urlChanged.connect(self.update_url)
 
+
+        # Dark mode
+        if std[1] == "Dark mode":
+            self.browser.setStyleSheet("background-color: black; color: white;")
+            self.browser.setAutoFillBackground(True)
+            print(self.browser.styleSheet())
+            navbar.setStyleSheet("background-color: black; color: white;")
+            
+        self.navbar= navbar
+            
     # self.functions
+    # ripv
+    # navigate_home
+    # navigate_to_url
+    # update_url
 
-    # Do nothing lol
-    def ripv(self):
+        
 
-        self.ver =QAction("A1.1.01")
+    def ripv(self): 
+        print("A2")
 
+    
+    #new tab
+    def newTab(self):
+        
+       
+        newTab = MainWindow()
+        
+        newTab.__init__()
+        
+        
+        
+        newTab.browser.setUrl(QUrl(self.url_bar.text()))
+        
+        # Fix url bar
+        
+        
+        newTab.url_bar.returnPressed.connect(newTab.navigate_to_url)
+        
+        #Set Tab 
+        newTab.browser.setTabOrder(newTab,self.browser)
+        
+        # Set theme
+        newTab.browser.setStyleSheet(self.browser.styleSheet())
+        newTab.browser.setAutoFillBackground(self.browser.autoFillBackground())
+        newTab.navbar.setStyleSheet(self.navbar.styleSheet())
+        
+        
+        
+        # Beta Warning
+        print("Beta Warning: This is a beta feature, it can have bugs, if you find a bug report it please")
+        os.system("echo beta warning: this is a beta feature, it can have bugs, if you find a bug report it please")
+        
+        
+        
+    
     # Go to home
 
     def navigate_home(self):
@@ -134,11 +223,15 @@ class MainWindow(QMainWindow):
 
     def navigate_to_url(self):
 
+        # Set Window title
+    
+
         url = self.url_bar.text()
 
         __final__ = ""
 
         # Https
+
 
         if url.find("https://") == 0:
 
@@ -161,6 +254,7 @@ class MainWindow(QMainWindow):
             __final__ = url.replace("nh:///","")
 
         self.browser.setUrl(QUrl(__final__))
+        
 
     # Update URL func
 
@@ -168,7 +262,7 @@ class MainWindow(QMainWindow):
 
         self.url_bar.setText(q.toString())
 
-
+    
 
 
 
@@ -177,14 +271,18 @@ class MainWindow(QMainWindow):
 
 app = QApplication(sys.argv)
 
-QApplication.setApplicationName("Chicken Burger")
+QApplication.setApplicationName("Chicken Burger Browser")
+QApplication.setApplicationVersion("A2")
+QApplication.setOrganizationName("DevCurly")
+QApplication.setOrganizationDomain("https://www.github.com/DevCurly/Chicken-Burger-brws")
 
 window = MainWindow()
 
 app.exec_()
 
-print("Made by DevCurly")
+print("Made by @DevCurly")
 
 print("https://www.github.com/DevCurly/Chicken-Burger-brws")
 
 print("---------------------------------------------------------------------------------")
+
