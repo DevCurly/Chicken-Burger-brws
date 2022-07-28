@@ -1,5 +1,9 @@
 # Chicken-Burger-brws
+Python web browser with easy extension to make everything!
 
-Needed: python
-
-Packages needed: PyQt5 and PyQtWebEngine
+# Requirements
+    Python
+    PyQt5 (Auto install)
+    
+ 
+    
